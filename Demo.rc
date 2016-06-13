@@ -1,0 +1,227 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\Demo.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\Demo.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DEMO_DIALOG DIALOGEX 0, 0, 461, 367
+STYLE DS_SETFONT | DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Demo"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDTCOUNT,70,18,29,14,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "Current",IDC_STATIC,135,19,29,8
+    EDITTEXT        IDC_EDTCUR,174,17,29,14,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "Serial Number",IDC_STATIC,18,40,54,8
+    EDITTEXT        IDC_EDTSN,70,37,133,14,ES_AUTOHSCROLL | WS_DISABLED
+    PUSHBUTTON      "Connect Sensor",IDC_BTNInit,18,80,77,14
+    PUSHBUTTON      "Save Image",IDC_BTNSave,18,101,77,14
+    GROUPBOX        "Image Format",IDC_STATIC,124,94,79,27
+    PUSHBUTTON      "Register",IDC_BTNReg,18,122,78,14
+    PUSHBUTTON      "Verify(1:1)",IDC_BTNVer,18,142,78,14
+    PUSHBUTTON      "Identify(1:N)",IDC_BTNIdentify,123,141,79,14
+    GROUPBOX        "Fingerprint Operation",IDC_STATIC,7,7,209,196
+    CONTROL         "BMP",IDC_RADIOBMP,"Button",BS_AUTORADIOBUTTON,134,106,28,10
+    CONTROL         "JPG",IDC_RADIOJPG,"Button",BS_AUTORADIOBUTTON,169,106,28,10
+    EDITTEXT        IDC_EDTHINT,7,328,433,32,ES_AUTOHSCROLL | ES_READONLY
+    GROUPBOX        "RFID Operation",IDC_STATIC,7,207,209,117
+    PUSHBUTTON      "ReaderSerialNumber",IDC_BTNSN,18,243,85,14
+    PUSHBUTTON      "CardNumber",IDC_BTNCARDNUMBER,117,243,86,14
+    PUSHBUTTON      "ReadCard",IDC_BTNREAD,77,293,42,14
+    PUSHBUTTON      "WriteCard",IDC_BTNWRITE,77,273,42,14
+    LTEXT           "Block",IDC_STATIC,19,275,21,8
+    EDITTEXT        IDC_EDIT_Block,43,273,21,14,ES_AUTOHSCROLL
+    GROUPBOX        "",IDC_STATIC,7,264,201,49
+    PUSHBUTTON      "WriteTemplateToCard",IDC_BTNWRITETMP,18,225,85,14
+    PUSHBUTTON      "ReadTemplateFromCard",IDC_BTNREADTMP,118,225,85,14
+    LTEXT           "Init->Register->WriteTemplateToCard",IDC_STATIC,225,304,141,8
+    LTEXT           "Init->ReadTemplateFromCard->Identify",IDC_STATIC,225,316,145,8
+    CONTROL         "",IDC_ZKFPENGX2,"{CA69969C-2F27-41D3-954D-A48B941C3BA7}",WS_TABSTOP,217,7,16,16
+    PUSHBUTTON      "Red",IDC_BTNRED,18,182,50,14
+    PUSHBUTTON      "Green",IDC_BTNGREEN,88,182,50,14
+    PUSHBUTTON      "Beep",IDC_BTNBEEP,153,182,50,14
+    PUSHBUTTON      "WritePassword",IDC_BTNWRITEPWD,145,273,58,14
+    PUSHBUTTON      "ReadPassword",IDC_BTNREADPWD,145,293,58,14
+    LTEXT           "Sensor Count",IDC_STATIC,18,20,49,8
+    CONTROL         "ZKFinger 9.0",IDC_RADIO9,"Button",BS_AUTORADIOBUTTON,19,62,64,10
+    CONTROL         "ZKFinger 10.0",IDC_RADIO10,"Button",BS_AUTORADIOBUTTON,124,62,68,10
+    PUSHBUTTON      "Disonnect Sensor",IDC_BTNDisConnect,124,80,77,14
+    PUSHBUTTON      "Register by image",IDC_BTNREGBYIMAGE,18,161,78,14
+    PUSHBUTTON      "Identify by image",IDC_BTNIDENBYIMAGE,123,161,79,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404B0"
+        BEGIN
+            VALUE "FileDescription", "Demo Microsoft 基础类应用程序"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "Demo"
+            VALUE "LegalCopyright", "版权所有 (C) 2002"
+            VALUE "OriginalFilename", "Demo.EXE"
+            VALUE "ProductName", "Demo 应用程序"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_DEMO_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 454
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 360
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_DEMO_DIALOG DLGINIT
+BEGIN
+    IDC_ZKFPENGX2, 0x376, 157, 0
+0x0000, 0x0000, 0x5054, 0x3046, 0x5408, 0x4b5a, 0x5046, 0x6e45, 0x0067, 
+0x4c04, 0x6665, 0x0274, 0x0300, 0x6f54, 0x0270, 0x0500, 0x6957, 0x7464, 
+0x0268, 0x0618, 0x6548, 0x6769, 0x7468, 0x1802, 0x450b, 0x726e, 0x6c6f, 
+0x436c, 0x756f, 0x746e, 0x0302, 0x530b, 0x6e65, 0x6f73, 0x4972, 0x646e, 
+0x7865, 0x0002, 0x5409, 0x7268, 0x7365, 0x6f68, 0x646c, 0x0a02, 0x4f11, 
+0x656e, 0x6f54, 0x6e4f, 0x5465, 0x7268, 0x7365, 0x6f68, 0x646c, 0x0a02, 
+0x4610, 0x726f, 0x6563, 0x6553, 0x6f63, 0x646e, 0x614d, 0x6374, 0x0868, 
+0x410c, 0x7475, 0x496f, 0x6564, 0x746e, 0x6669, 0x0879, 0x490d, 0x4973, 
+0x616d, 0x6567, 0x6843, 0x6e61, 0x6567, 0x0008, "\000" 
+    0
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\Demo.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
