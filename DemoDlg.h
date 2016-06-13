@@ -60,7 +60,6 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnBTNInit();
 	afx_msg void OnOnImageReceivedZkfpengx2(BOOL FAR* AImageValid);
-	afx_msg void OnBTNSave();
 	afx_msg void OnBTNReg();
 	afx_msg void OnBTNIdentify();
 	afx_msg void OnBTNVer();
@@ -69,19 +68,13 @@ protected:
 	afx_msg void OnOnFeatureInfoZkfpengx2(long AQuality);
 	afx_msg void OnDestroy();
 	afx_msg void OnClose();
-	afx_msg void OnGetCardSN();
 	afx_msg void OnReadcard();
 	afx_msg void OnWriteCard();
-	afx_msg void OnTemplateToCard();
-	afx_msg void OnButton6();
 
-	int GetCardByteSerial(BYTE  *pSerial);
 	int ReadBLOCK(int blockIndex, BYTE *pData, BYTE *key);
 	int ReadBlock2(BYTE blockIndex, BYTE *pData, int blockLen);
 	int WriteBLOCK(BYTE blockIndex, BYTE *pData, BYTE *key);
 	int WriteBlock2(BYTE blkIndex, BYTE *pData, int blockLen);
-	CString GetSnr();
-	CString GetCardStrSerial();
 
 	void EnableButton(bool bEnable);
 	DECLARE_EVENTSINK_MAP()
@@ -90,9 +83,7 @@ protected:
 public:
 	afx_msg void OnBnClickedBtnred();
 	afx_msg void OnBnClickedBtngreen();
-	afx_msg void OnBnClickedButton9();
 	afx_msg void OnBnClickedBtnbeep();
-	afx_msg void OnBnClickedBtnpwd();
 	afx_msg void OnBnClickedBtnwritepwd();
 	afx_msg void OnBnClickedBtnreadpwd();
 	afx_msg void OnBnClickedRadio9();

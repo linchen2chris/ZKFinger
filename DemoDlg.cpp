@@ -180,15 +180,6 @@ void CDemoDlg::OnOnImageReceivedZkfpengx2(BOOL FAR* AImageValid)
 	zkfpEng.PrintImageAt(long(hdc), 330, 2, zkfpEng.get_ImageWidth(), zkfpEng.get_ImageHeight());
 }
 
-void CDemoDlg::OnBTNSave() 
-{
-	if (IsDlgButtonChecked(IDC_RADIOBMP) != 0)
-		zkfpEng.SaveBitmap("fingerprint.bmp");
-	else
-		zkfpEng.SaveJPG("fingerprint.jpg");
-	MessageBox("Fingerprint Image saved");
-}
-
 void CDemoDlg::OnBTNReg() 
 {
 	zkfpEng.CancelEnroll();
