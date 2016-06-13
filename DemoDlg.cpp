@@ -46,7 +46,6 @@ BEGIN_MESSAGE_MAP(CDemoDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BTNInit, OnBTNInit)
-	ON_BN_CLICKED(IDC_BTNSave, OnBTNSave)
 	ON_BN_CLICKED(IDC_BTNReg, OnBTNReg)
 	ON_BN_CLICKED(IDC_BTNIdentify, OnBTNIdentify)
 	ON_BN_CLICKED(IDC_BTNVer, OnBTNVer)
@@ -612,7 +611,6 @@ void CDemoDlg::EnableButton(bool bEnable)
 {
 	GetDlgItem(IDC_BTNInit)->EnableWindow(!bEnable);
 	GetDlgItem(IDC_BTNDisConnect)->EnableWindow(bEnable);
-	GetDlgItem(IDC_BTNSave)->EnableWindow(bEnable);
 	GetDlgItem(IDC_BTNReg)->EnableWindow(bEnable);
 	GetDlgItem(IDC_BTNVer)->EnableWindow(bEnable);
 	GetDlgItem(IDC_BTNIdentify)->EnableWindow(bEnable);

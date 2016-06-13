@@ -13,13 +13,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Chinese (P.R.C.) resources
+// Chinese (Simplified, PRC) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
-#ifdef _WIN32
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 #pragma code_page(936)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -68,6 +66,7 @@ END
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\Demo.ico"
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog
@@ -85,7 +84,6 @@ BEGIN
     LTEXT           "Serial Number",IDC_STATIC,18,40,54,8
     EDITTEXT        IDC_EDTSN,70,37,133,14,ES_AUTOHSCROLL | WS_DISABLED
     PUSHBUTTON      "Connect Sensor",IDC_BTNInit,18,80,77,14
-    PUSHBUTTON      "Save Image",IDC_BTNSave,18,101,77,14
     GROUPBOX        "Image Format",IDC_STATIC,124,94,79,27
     PUSHBUTTON      "Register",IDC_BTNReg,18,122,78,14
     PUSHBUTTON      "Verify(1:1)",IDC_BTNVer,18,142,78,14
@@ -165,7 +163,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_DEMO_DIALOG, DIALOG
     BEGIN
@@ -198,7 +196,18 @@ BEGIN
     0
 END
 
-#endif    // Chinese (P.R.C.) resources
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DEMO_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // Chinese (Simplified, PRC) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
