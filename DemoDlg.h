@@ -62,7 +62,6 @@ protected:
 	afx_msg void OnOnImageReceivedZkfpengx2(BOOL FAR* AImageValid);
 	afx_msg void OnBTNReg();
 	afx_msg void OnBTNIdentify();
-	afx_msg void OnBTNVer();
 	afx_msg void OnOnCaptureZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATemplate);
 	afx_msg void OnOnEnrollZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATemplate);
 	afx_msg void OnOnFeatureInfoZkfpengx2(long AQuality);

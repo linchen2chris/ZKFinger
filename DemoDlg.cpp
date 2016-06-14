@@ -48,7 +48,6 @@ BEGIN_MESSAGE_MAP(CDemoDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTNInit, OnBTNInit)
 	ON_BN_CLICKED(IDC_BTNReg, OnBTNReg)
 	ON_BN_CLICKED(IDC_BTNIdentify, OnBTNIdentify)
-	ON_BN_CLICKED(IDC_BTNVer, OnBTNVer)
 	ON_WM_DESTROY()
 	ON_WM_CLOSE()
 	ON_BN_CLICKED(IDC_BTNREAD, OnReadcard)
@@ -195,14 +194,6 @@ void CDemoDlg::OnBTNIdentify()
         zkfpEng.CancelEnroll();
 	SetDlgItemText(IDC_EDTHINT, "Identify(1:N)");		
     matchType = 2;
-}
-
-void CDemoDlg::OnBTNVer() 
-{
-    if (zkfpEng.get_IsRegister())
-        zkfpEng.CancelEnroll();
-	SetDlgItemText(IDC_EDTHINT, "Verify(1:1)");		
-    matchType = 1;
 }
 
 BOOL CDemoDlg::DestroyWindow() 
@@ -603,7 +594,6 @@ void CDemoDlg::EnableButton(bool bEnable)
 	GetDlgItem(IDC_BTNInit)->EnableWindow(!bEnable);
 	GetDlgItem(IDC_BTNDisConnect)->EnableWindow(bEnable);
 	GetDlgItem(IDC_BTNReg)->EnableWindow(bEnable);
-	GetDlgItem(IDC_BTNVer)->EnableWindow(bEnable);
 	GetDlgItem(IDC_BTNIdentify)->EnableWindow(bEnable);
 	GetDlgItem(IDC_BTNRED)->EnableWindow(bEnable);
 	GetDlgItem(IDC_BTNGREEN)->EnableWindow(bEnable);

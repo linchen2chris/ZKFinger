@@ -86,7 +86,6 @@ BEGIN
     PUSHBUTTON      "Connect Sensor",IDC_BTNInit,18,80,77,14
     GROUPBOX        "Image Format",IDC_STATIC,124,94,79,27
     PUSHBUTTON      "Register",IDC_BTNReg,18,122,78,14
-    PUSHBUTTON      "Verify(1:1)",IDC_BTNVer,18,142,78,14
     PUSHBUTTON      "Identify(1:N)",IDC_BTNIdentify,123,141,79,14
     GROUPBOX        "Fingerprint Operation",IDC_STATIC,7,7,209,196
     CONTROL         "BMP",IDC_RADIOBMP,"Button",BS_AUTORADIOBUTTON,134,106,28,10
