@@ -61,7 +61,6 @@ BEGIN_MESSAGE_MAP(CDemoDlg, CDialog)
 	ON_BN_CLICKED(IDC_RADIO9, &CDemoDlg::OnBnClickedRadio9)
 	ON_BN_CLICKED(IDC_RADIO10, &CDemoDlg::OnBnClickedRadio10)
 	ON_BN_CLICKED(IDC_BTNDisConnect, &CDemoDlg::OnBnClickedBtndisconnect)
-	ON_BN_CLICKED(IDC_BTNIDENBYIMAGE, &CDemoDlg::OnBnClickedBtnidenbyimage)
 	ON_BN_CLICKED(IDC_BTNSN, &CDemoDlg::OnBnClickedBtnsn)
 	ON_BN_CLICKED(IDC_BTNCARDNUMBER, &CDemoDlg::OnBnClickedBtncardnumber)
 	ON_BN_CLICKED(IDC_BTNWRITETMP, &CDemoDlg::OnBnClickedBtnwritetmp)
@@ -597,34 +596,11 @@ void CDemoDlg::EnableButton(bool bEnable)
 	GetDlgItem(IDC_BTNRED)->EnableWindow(bEnable);
 	GetDlgItem(IDC_BTNGREEN)->EnableWindow(bEnable);
 	GetDlgItem(IDC_BTNBEEP)->EnableWindow(bEnable);
-	GetDlgItem(IDC_BTNIDENBYIMAGE)->EnableWindow(bEnable);
 }
 void CDemoDlg::OnBnClickedBtndisconnect()
 {
 	zkfpEng.EndEngine();
 	EnableButton(false);
-}
-
-void CDemoDlg::OnBnClickedBtnidenbyimage()
-{
-	LPCTSTR lpszFilter = _T("BMP File(*.bmp)|*.bmp|JPG File(*.jpg)|*.jpg|");
-	CFileDialog dlg1(TRUE,lpszFilter,NULL,OFN_HIDEREADONLY|
-		OFN_OVERWRITEPROMPT,lpszFilter,NULL);
-	CString filename;
-	CFile file;
-	if (dlg1.DoModal() == IDOK)
-	{
-		filename = dlg1.GetPathName();
-		if(zkfpEng.get_IsRegister())
-			zkfpEng.CancelEnroll();
-
-		zkfpEng.BeginCapture();
-
-		if(!zkfpEng.AddImageFile((LPCTSTR)filename, 500))
-		{
-			MessageBox(_T("Extract failed or not using the standard version of ZKFinger SDK"));
-		}
-	}
 }
 
 void CDemoDlg::OnBnClickedBtnsn()
