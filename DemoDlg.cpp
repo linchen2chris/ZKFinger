@@ -206,7 +206,7 @@ void CDemoDlg::OnOnCaptureZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATempl
 			}
 			else
 			{
-				SetDlgItemText(IDC_EDTHINT, "Verify Failed");
+				SetDlgItemText(IDC_EDTHINT, "验证失败");
 			}
 			bVerWithCard = false;
 		}
@@ -225,11 +225,18 @@ void CDemoDlg::OnOnCaptureZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATempl
 
 			if (zkfpEng.VerFingerFromStr(&bTemp, (LPCTSTR)sTemp, FALSE, &RegChanged))
 			{
-				SetDlgItemText(IDC_EDTHINT, "Verify Succeed");
+				SetDlgItemText(IDC_EDTHINT, "验证成功！");
+				zkfpEng.ControlSensor(11, 1);
+				zkfpEng.ControlSensor(11, 0);
+				zkfpEng.ControlSensor(13, 1);
+				zkfpEng.ControlSensor(13, 0);
 			}
 			else
 			{
-				SetDlgItemText(IDC_EDTHINT, "Verify Failed");
+				zkfpEng.ControlSensor(12, 1);
+				zkfpEng.ControlSensor(12, 0);
+				SetDlgItemText(IDC_EDTHINT, "验证失败！");
+
 			}
 		}
 	}	
@@ -239,11 +246,17 @@ void CDemoDlg::OnOnCaptureZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATempl
 		id = zkfpEng.IdentificationInFPCacheDB(fpcHandle, ATemplate, &Score, &ProcessNum);
 		if (id == -1)
 		{
-			SetDlgItemText(IDC_EDTHINT, "Identify Failed");
+			zkfpEng.ControlSensor(12, 1);
+			zkfpEng.ControlSensor(12, 0);
+			SetDlgItemText(IDC_EDTHINT, "验证失败");
 		}
 		else
 		{
-			sprintf(buffer, "Identify Succeed ID = %d Score = %d  Processed Number = %d", id, Score, ProcessNum);
+			zkfpEng.ControlSensor(11, 1);
+			zkfpEng.ControlSensor(11, 0);
+			zkfpEng.ControlSensor(13, 1);
+			zkfpEng.ControlSensor(13, 0);
+			sprintf(buffer, "验证成功 ID = %d Score = %d  Processed Number = %d", id, Score, ProcessNum);
 			SetDlgItemText(IDC_EDTHINT, buffer);
 		}
 	}   
@@ -271,12 +284,17 @@ void CDemoDlg::OnOnEnrollZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATempla
 			pTemplate = zkfpEng.DecodeTemplate1((LPCTSTR)sRegTemplate);
 
 			// Note: 10.0Template can not be compressed
+			zkfpEng.ControlSensor(11, 1);
+			zkfpEng.ControlSensor(11, 0);
+			zkfpEng.ControlSensor(13, 1);
+			zkfpEng.ControlSensor(13, 0);
 			zkfpEng.SetTemplateLen(&pTemplate, 602);
 			zkfpEng.SaveTemplate("fingerprint.tpl", pTemplate);
 
 			FPID = FPID + 1;
 			UpdateData(TRUE);
-			MessageBox("Register Succeed");
+			MessageBox("注册成功！");
+
 		}
 		else
 		{
@@ -293,14 +311,14 @@ void CDemoDlg::OnOnFeatureInfoZkfpengx2(long AQuality)
 	if (zkfpEng.get_IsRegister())
 	{
 		ltoa(zkfpEng.get_EnrollIndex(), buffer, 10);
-		str = str + "Register Status: still press finger " + buffer + " times";
+		str = str + "注册状态: 需要按指纹 " + buffer + " 次";
 	}
-	str += " Fingerprint quality";
+	str += " 指纹质量";
 	ltoa(zkfpEng.get_LastQuality(), buffer, 10);
 	if (AQuality != 0)
-		str = str + " not good, quality="  + buffer;
+		str = str + " 一般, 质量="  + buffer;
 	else
-		str = str + " good, quality=" + buffer;
+		str = str + " 很好, 质量=" + buffer;
 	SetDlgItemText(IDC_EDTHINT, str);
 }
 
