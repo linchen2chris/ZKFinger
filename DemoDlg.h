@@ -88,7 +88,6 @@ public:
 	afx_msg void OnBnClickedRadio9();
 	afx_msg void OnBnClickedRadio10();
 	afx_msg void OnBnClickedBtndisconnect();
-	afx_msg void OnBnClickedBtnregbyimage();
 	afx_msg void OnBnClickedBtnidenbyimage();
 	afx_msg void OnBnClickedBtnsn();
 	afx_msg void OnBnClickedBtncardnumber();
