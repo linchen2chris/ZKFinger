@@ -88,10 +88,6 @@ public:
 	afx_msg void OnBnClickedRadio9();
 	afx_msg void OnBnClickedRadio10();
 	afx_msg void OnBnClickedBtndisconnect();
-	afx_msg void OnBnClickedBtnsn();
-	afx_msg void OnBnClickedBtncardnumber();
-	afx_msg void OnBnClickedBtnwritetmp();
-	afx_msg void OnBnClickedBtnreadtmp();
 };
 
 //{{AFX_INSERT_LOCATION}}

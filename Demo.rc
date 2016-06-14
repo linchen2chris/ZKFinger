@@ -86,20 +86,13 @@ BEGIN
     PUSHBUTTON      "连接指纹扫描仪",IDC_BTNInit,18,80,77,14
     PUSHBUTTON      "注册新指纹",IDC_BTNReg,19,130,78,14
     PUSHBUTTON      "指纹签到",IDC_BTNIdentify,123,129,79,14
-    GROUPBOX        "Fingerprint Operation",IDC_STATIC,7,7,209,196
+    GROUPBOX        "Fingerprint Operation",IDC_STATIC,7,7,209,248
     EDITTEXT        IDC_EDTHINT,7,328,433,32,ES_AUTOHSCROLL | ES_READONLY
-    GROUPBOX        "RFID Operation",IDC_STATIC,7,207,209,117
-    PUSHBUTTON      "ReaderSerialNumber",IDC_BTNSN,18,243,85,14
-    PUSHBUTTON      "CardNumber",IDC_BTNCARDNUMBER,117,243,86,14
     PUSHBUTTON      "ReadCard",IDC_BTNREAD,77,293,42,14
     PUSHBUTTON      "WriteCard",IDC_BTNWRITE,77,273,42,14
     LTEXT           "Block",IDC_STATIC,19,275,21,8
     EDITTEXT        IDC_EDIT_Block,43,273,21,14,ES_AUTOHSCROLL
     GROUPBOX        "",IDC_STATIC,7,264,201,49
-    PUSHBUTTON      "WriteTemplateToCard",IDC_BTNWRITETMP,18,225,85,14
-    PUSHBUTTON      "ReadTemplateFromCard",IDC_BTNREADTMP,118,225,85,14
-    LTEXT           "Init->Register->WriteTemplateToCard",IDC_STATIC,225,304,141,8
-    LTEXT           "Init->ReadTemplateFromCard->Identify",IDC_STATIC,225,316,145,8
     CONTROL         "",IDC_ZKFPENGX2,"{CA69969C-2F27-41D3-954D-A48B941C3BA7}",WS_TABSTOP,217,7,16,16
     PUSHBUTTON      "Red",IDC_BTNRED,18,182,50,14
     PUSHBUTTON      "Green",IDC_BTNGREEN,88,182,50,14
@@ -110,6 +103,8 @@ BEGIN
     CONTROL         "ZKFinger 9.0",IDC_RADIO9,"Button",BS_AUTORADIOBUTTON,19,62,64,10
     CONTROL         "ZKFinger 10.0",IDC_RADIO10,"Button",BS_AUTORADIOBUTTON,124,62,68,10
     PUSHBUTTON      "断开指纹扫描仪",IDC_BTNDisConnect,124,80,77,14
+    LTEXT           "连接指纹仪->指纹签到->签到成功",IDC_STATIC,225,307,121,8
+    LTEXT           "连接指纹仪->注册新指纹(按3次完成录入)",IDC_STATIC,225,287,149,8
 END
 
 
