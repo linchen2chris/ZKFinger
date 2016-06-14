@@ -84,7 +84,6 @@ BOOL CDemoDlg::OnInitDialog()
 	FPID = 1;
 	fpcHandle = 0;
 
-	CheckRadioButton(IDC_RADIOBMP, IDC_RADIOJPG, IDC_RADIOBMP);
 	CheckRadioButton(IDC_RADIO9, IDC_RADIO10, IDC_RADIO9);
 	EnableButton(false);
 	
