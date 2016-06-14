@@ -68,11 +68,6 @@ protected:
 	afx_msg void OnDestroy();
 	afx_msg void OnClose();
 
-	int ReadBLOCK(int blockIndex, BYTE *pData, BYTE *key);
-	int ReadBlock2(BYTE blockIndex, BYTE *pData, int blockLen);
-	int WriteBLOCK(BYTE blockIndex, BYTE *pData, BYTE *key);
-	int WriteBlock2(BYTE blkIndex, BYTE *pData, int blockLen);
-
 	void EnableButton(bool bEnable);
 	DECLARE_EVENTSINK_MAP()
 	//}}AFX_MSG

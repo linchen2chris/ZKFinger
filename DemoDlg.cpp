@@ -20,7 +20,6 @@ CDemoDlg::CDemoDlg(CWnd* pParent /*=NULL*/)
 	m_Cur = _T("");
 	m_SN = _T("");
 	m_Count = _T("");
-	m_Block = 1;
 	//}}AFX_DATA_INIT
 	// Note that LoadIcon does not require a subsequent DestroyIcon in Win32
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
@@ -36,8 +35,6 @@ void CDemoDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDTCUR, m_Cur);
 	DDX_Text(pDX, IDC_EDTSN, m_SN);
 	DDX_Text(pDX, IDC_EDTCOUNT, m_Count);
-	DDX_Text(pDX, IDC_EDIT_Block, m_Block);
-	DDV_MinMaxInt(pDX, m_Block, 0, 63);
 	//}}AFX_DATA_MAP
 }
 
@@ -320,130 +317,6 @@ void CDemoDlg::OnClose()
 		zkfpEng.FreeFPCacheDBEx(fpcHandle);
 	}
 	CDialog::OnClose();
-}
-
-int CDemoDlg::ReadBLOCK(int blockIndex, BYTE *pData, BYTE *key)
-{
-	int ret = 0;
-
-	if(blockIndex<0 || blockIndex>63)// mifare s50card 0~63
-		ret = -1;
-
-	if(!zkfpEng.MF_PCDRead(0 ,0, 0, blockIndex, 1, key, pData))
-		ret = pData[0];
-
-	return ret;
-}
-
-int CDemoDlg::ReadBlock2(BYTE blockIndex, BYTE *pData, int blockLen)
-{
-	BYTE *buf = NULL;
-	BYTE key[6];
-
-	int i = 0, index = 0, blockNum = 0;
-
-	index = blockIndex;
-	buf = pData;
-
-	for(i = 0;i< blockLen;)
-	{
-		// S50 Card£º1024Bytes£¬16 Sectors£¬each sector 4 blocks
-		// S70 Card£º4096Bytes£¬40 Sectors£¬the first 32 secotrs have per4 block£¬last 8 have per16 blocks.
-		if(index >= 64)
-			return -1;
-
-		if(index == 0) // In first secotr, block 0 for card number... Only 2 block can use.
-		{	
-			index = 1;
-			blockNum = 2;
-		}
-		else if(index< 32*4) // s50 card
-		{	
-			if(index%4 == 3)
-				index++;
-			blockNum = 3;
-		}
-		else if(index > 32*4) // s70 card
-		{	
-			if(index%16 == 15)	
-				index++;
-			blockNum = 3;
-		}
-
-		memset(key, 0xFF, 6); // As 0xffffffffffff for keyA
-		
-		if(!zkfpEng.MF_PCDRead(0, 0, 0, index, blockNum, key, buf))
-			return buf[0];
-
-		index += blockNum;
-		buf = buf + 16*blockNum;
-		i += blockNum;
-	}
-	return 0;
-}
-
-int CDemoDlg::WriteBLOCK(BYTE blockIndex, BYTE *pData, BYTE *key)
-{
-	int ret = 0;
-
-	if(blockIndex<0 || blockIndex>64) // mifare s50card 0~63 
-		ret = -1;
-	if(blockIndex%4 == 3)	// It's password block
-		ret = -1;
-
-	if(!zkfpEng.MF_PCDWrite(0, 0, 0, blockIndex, 1, key, pData))
-		ret = pData[0];
-	else
-		ret = 0;
-	return ret;
-}
-
-int CDemoDlg::WriteBlock2(BYTE blkIndex, BYTE *pData, int blockLen)
-{
-	BYTE *buf = NULL;
-	BYTE key[6] = {0};
-	int i = 0, index = 0, blockNum = 0;
-
-	index = blkIndex;
-	
-	buf = pData;
-
-	for(i = 0; i< blockLen;) 
-	{
-		// S50 Card£º1024Bytes£¬16 Sectors£¬each sector 4 blocks
-		// S70 Card£º4096Bytes£¬40 Sectors£¬the first 32 secotrs have per4 block£¬last 8 have per16 blocks.
-		if(index >= 64)
-			return -1;
-
-		if(index == 0) // In first secotr, block 0 for card number... Only 2 block can use.
-		{	
-			index = 1;
-			blockNum = 2;
-		}
-		else if(index <32*4) // s50 card
-		{	
-			if(index%4 == 3)
-				index++;
-			blockNum = 3;
-		}
-		else if(index > 32*4) // s70 card
-		{	
-			if(index%16 == 15)
-				index++;
-			blockNum = 3;
-		}
-
-		memset(key, 0xff, 6); //0xffffffffffff as keyA
-
-		if(!zkfpEng.MF_PCDWrite(0, 0, 0, index, blockNum, key, buf))
-		{
-			return buf[0];
-		}
-		index += blockNum;
-		buf = buf + 16*blockNum;
-		i += blockNum;
-	}
-	return 0;
 }
 
 /*
