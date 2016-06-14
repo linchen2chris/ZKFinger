@@ -50,14 +50,10 @@ BEGIN_MESSAGE_MAP(CDemoDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTNIdentify, OnBTNIdentify)
 	ON_WM_DESTROY()
 	ON_WM_CLOSE()
-	ON_BN_CLICKED(IDC_BTNREAD, OnReadcard)
-	ON_BN_CLICKED(IDC_BTNWRITE, OnWriteCard)
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDC_BTNRED, &CDemoDlg::OnBnClickedBtnred)
 	ON_BN_CLICKED(IDC_BTNGREEN, &CDemoDlg::OnBnClickedBtngreen)
 	ON_BN_CLICKED(IDC_BTNBEEP, &CDemoDlg::OnBnClickedBtnbeep)
-	ON_BN_CLICKED(IDC_BTNWRITEPWD, &CDemoDlg::OnBnClickedBtnwritepwd)
-	ON_BN_CLICKED(IDC_BTNREADPWD, &CDemoDlg::OnBnClickedBtnreadpwd)
 	ON_BN_CLICKED(IDC_RADIO9, &CDemoDlg::OnBnClickedRadio9)
 	ON_BN_CLICKED(IDC_RADIO10, &CDemoDlg::OnBnClickedRadio10)
 	ON_BN_CLICKED(IDC_BTNDisConnect, &CDemoDlg::OnBnClickedBtndisconnect)
@@ -450,53 +446,6 @@ int CDemoDlg::WriteBlock2(BYTE blkIndex, BYTE *pData, int blockLen)
 	return 0;
 }
 
-void CDemoDlg::OnReadcard() 
-{
-	CString str;
-	BYTE buf[256] = {0};
-	BYTE key[6] = {0};
-	int ret = 0, Block = 0;
-
-	UpdateData(TRUE);
-	Block = m_Block;
-	memset(key, 0xFF, 6); // 0xFFFFFFFFFFFF as keyA
-	ret =  ReadBLOCK(Block, buf, key);
-	if(ret == 0)
-		str.Format("BLOCK=0x%02X, Data=0x %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X ",
-					Block, buf[0], buf[1], buf[2], buf[3], buf[4], buf[5], buf[6], buf[7],
-					buf[8], buf[9], buf[10], buf[11], buf[12], buf[13], buf[14], buf[15]);
-	else
-		str.Format("Errorcode=%X", ret);
-	SetDlgItemText(IDC_EDTHINT, "Read card:" + str);	
-}
-
-void CDemoDlg::OnWriteCard() 
-{
-	CString str;
-	BYTE buf[16] = {0};
-	BYTE key[6] = {0};
-	int ret = 0, Block = 0;
-
-	UpdateData(TRUE);
-	if(m_Block%4 ==3 || m_Block == 0)
-	{
-		MessageBox("Parameter error!");
-		m_Block = 1;
-		UpdateData(FALSE);
-	}
-	Block = m_Block;
-
-	memset(buf, 0x66, 16);
-
-	memset(key, 0xFF, 6); // 0xFFFFFFFFFFFF as keyA
-	ret =  WriteBLOCK(Block, buf, key);
-	if(ret == 0)
-		str.Format("BLOCK=0x%02X, succeed ",Block);
-	else
-		str.Format("Errorcode=%X", ret);
-	SetDlgItemText(IDC_EDTHINT, "Write card:" + str);	
-}
-
 /*
 ControlSensor(ACode As Long; AValue As Long)
 If ACode=11, control the green light, if it¡¯s 12, control the red light, if it¡¯s 13,
@@ -519,57 +468,6 @@ void CDemoDlg::OnBnClickedBtnbeep()
 {
 	zkfpEng.ControlSensor(13, 1);
 	zkfpEng.ControlSensor(13, 0);
-}
-
-void CDemoDlg::OnBnClickedBtnwritepwd()
-{
-	CString str;
-	BYTE buf[16];
-	BYTE key[6];
-
-	// keyA
-	memset(buf, 0x66, 6);
-	// FF 07 80 69 as default
-	buf[6] = 0xFF;
-	buf[7] = 0x07;
-	buf[8] = 0x80;
-	buf[9] = 0x69;
-
-	// keyB
-	memset(&buf[10], 0xFF, 6);
-
-	memset(key, 0xFF, 6); // 0xFFFFFFFFFFFF as keyA	
-
-	// Only modify the first sector's keyA
-	if(zkfpEng.MF_PCDWrite(0, 0, 0, 3, 1, key, buf))
-	{
-		str.Format("BLOCK = 0x%02X, success ", 3);
-	}
-	else
-		str.Format("Errorcode=%X", buf[0]);
-	SetDlgItemText(IDC_EDTHINT, "Write card:" +  str);
-}
-
-void CDemoDlg::OnBnClickedBtnreadpwd()
-{
-	CString temp;
-	BYTE buf[256] = {0};
-	BYTE key[6] = {0};
-	int ret = 0, Block = 0;
-
-	UpdateData(TRUE);
-
-	memset(key, 0x66, 6); // 0x666666666666 as keyA
-	// Only Read block 1
-	Block = 1;
-	ret =  ReadBLOCK(1, buf, key);
-	if(ret == 0)
-		temp.Format("BLOCK = 0x%02X, Data=0x %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X ",
-				Block, buf[0], buf[1], buf[2], buf[3], buf[4], buf[5], buf[6], buf[7],
-				buf[8], buf[9], buf[10], buf[11], buf[12], buf[13], buf[14], buf[15]);
-	else
-		temp.Format("Errorcode=%X", ret);
-	SetDlgItemText(IDC_EDTHINT, "Read card:" + temp);
 }
 
 void CDemoDlg::OnBnClickedRadio9()

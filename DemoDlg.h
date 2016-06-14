@@ -67,8 +67,6 @@ protected:
 	afx_msg void OnOnFeatureInfoZkfpengx2(long AQuality);
 	afx_msg void OnDestroy();
 	afx_msg void OnClose();
-	afx_msg void OnReadcard();
-	afx_msg void OnWriteCard();
 
 	int ReadBLOCK(int blockIndex, BYTE *pData, BYTE *key);
 	int ReadBlock2(BYTE blockIndex, BYTE *pData, int blockLen);
@@ -83,8 +81,6 @@ public:
 	afx_msg void OnBnClickedBtnred();
 	afx_msg void OnBnClickedBtngreen();
 	afx_msg void OnBnClickedBtnbeep();
-	afx_msg void OnBnClickedBtnwritepwd();
-	afx_msg void OnBnClickedBtnreadpwd();
 	afx_msg void OnBnClickedRadio9();
 	afx_msg void OnBnClickedRadio10();
 	afx_msg void OnBnClickedBtndisconnect();
