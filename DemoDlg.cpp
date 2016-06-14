@@ -142,12 +142,12 @@ void CDemoDlg::OnBTNInit()
 		SetDlgItemText(IDC_EDTCUR, m_Cur);
 		SetDlgItemText(IDC_EDTCOUNT, m_Count);
 		SetDlgItemText(IDC_EDTSN, m_SN);		
-		MessageBox("Initial Succeed");
+		MessageBox("设备连接成功！");
 	} 
 	else
 	{
 		zkfpEng.EndEngine();
-		MessageBox("Initial Failed");
+		MessageBox("设备连接失败！");
 	}
 	matchType = 2;
 }
@@ -178,14 +178,14 @@ void CDemoDlg::OnBTNReg()
 	zkfpEng.put_EnrollCount(3);
 	zkfpEng.BeginEnroll();
 
-	SetDlgItemText(IDC_EDTHINT, "start register");		
+	SetDlgItemText(IDC_EDTHINT, "开始注册，请放入手指");		
 }
 
 void CDemoDlg::OnBTNIdentify() 
 {
     if (zkfpEng.get_IsRegister())
         zkfpEng.CancelEnroll();
-	SetDlgItemText(IDC_EDTHINT, "Identify(1:N)");		
+	SetDlgItemText(IDC_EDTHINT, "准备指纹签到！");		
     matchType = 2;
 }
 
