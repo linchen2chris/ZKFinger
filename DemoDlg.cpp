@@ -3,6 +3,8 @@
 #include "stdafx.h"
 #include "Demo.h"
 #include "DemoDlg.h"
+#include "iostream"
+#include <windows.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -127,6 +129,7 @@ void CDemoDlg::OnBTNInit()
 		else
 			zkfpEng.put_FPEngineVersion("10");
 		fpcHandle = zkfpEng.CreateFPCacheDBEx();
+		long id = zkfpEng.AddRegTemplateFileToFPCacheDB(fpcHandle, FPID, "fingerprint.tpl");
 		m_SN = zkfpEng.get_SensorSN();
 		ltoa(zkfpEng.get_SensorIndex(), buffer, 10);
 		m_Cur = buffer;
@@ -194,72 +197,17 @@ void CDemoDlg::OnOnCaptureZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATempl
 	CString sTemp;
 	BOOL RegChanged;
 	
-	if (matchType == 1)
+	Score = 8;
+	id = zkfpEng.IdentificationInFPCacheDB(fpcHandle, ATemplate, &Score, &ProcessNum);	
+	if (id == -1)
 	{
-		if(bVerWithCard)
-		{
-			BOOL ARegFeatureChanged;
-
-			if(zkfpEng.VerRegFingerFile("fingerprint2.tpl", ATemplate, false, &ARegFeatureChanged))
-			{
-				SetDlgItemText(IDC_EDTHINT, "Verify Succeed(from Mifare Card)!");
-			}
-			else
-			{
-				SetDlgItemText(IDC_EDTHINT, "验证失败");
-			}
-			bVerWithCard = false;
-		}
-		else
-		{
-			sTemp = zkfpEng.GetTemplateAsString();
-			BSTR bTemp;
-			if (IsDlgButtonChecked(IDC_RADIO9) != 0)
-			{
-				bTemp = sRegTemplate.AllocSysString();
-			}
-			else
-			{
-				bTemp = sRegTemplate10.AllocSysString();
-			}
-
-			if (zkfpEng.VerFingerFromStr(&bTemp, (LPCTSTR)sTemp, FALSE, &RegChanged))
-			{
-				SetDlgItemText(IDC_EDTHINT, "验证成功！");
-				zkfpEng.ControlSensor(11, 1);
-				zkfpEng.ControlSensor(11, 0);
-				zkfpEng.ControlSensor(13, 1);
-				zkfpEng.ControlSensor(13, 0);
-			}
-			else
-			{
-				zkfpEng.ControlSensor(12, 1);
-				zkfpEng.ControlSensor(12, 0);
-				SetDlgItemText(IDC_EDTHINT, "验证失败！");
-
-			}
-		}
-	}	
-	else if (matchType == 2) // 1:N
-	{  
-		Score = 8;
-		id = zkfpEng.IdentificationInFPCacheDB(fpcHandle, ATemplate, &Score, &ProcessNum);
-		if (id == -1)
-		{
-			zkfpEng.ControlSensor(12, 1);
-			zkfpEng.ControlSensor(12, 0);
-			SetDlgItemText(IDC_EDTHINT, "验证失败");
-		}
-		else
-		{
-			zkfpEng.ControlSensor(11, 1);
-			zkfpEng.ControlSensor(11, 0);
-			zkfpEng.ControlSensor(13, 1);
-			zkfpEng.ControlSensor(13, 0);
-			sprintf(buffer, "验证成功 ID = %d Score = %d  Processed Number = %d", id, Score, ProcessNum);
-			SetDlgItemText(IDC_EDTHINT, buffer);
-		}
-	}   
+		SetDlgItemText(IDC_EDTHINT, "验证失败");
+	}
+	else
+	{
+		sprintf(buffer, "验证成功 ID = %d Score = %d  Processed Number = %d", id, Score, ProcessNum);
+		SetDlgItemText(IDC_EDTHINT, buffer);
+	}  
 }
 
 void CDemoDlg::OnOnEnrollZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATemplate) 
@@ -282,12 +230,8 @@ void CDemoDlg::OnOnEnrollZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATempla
 				MessageBox("Register 10.0 failed, template length is zero");
 
 			pTemplate = zkfpEng.DecodeTemplate1((LPCTSTR)sRegTemplate);
-
+			MessageBox(sRegTemplate);
 			// Note: 10.0Template can not be compressed
-			zkfpEng.ControlSensor(11, 1);
-			zkfpEng.ControlSensor(11, 0);
-			zkfpEng.ControlSensor(13, 1);
-			zkfpEng.ControlSensor(13, 0);
 			zkfpEng.SetTemplateLen(&pTemplate, 602);
 			zkfpEng.SaveTemplate("fingerprint.tpl", pTemplate);
 
