@@ -4,8 +4,9 @@
 #include "Demo.h"
 #include "DemoDlg.h"
 #include "iostream"
+#include <fstream>
+#include <string>
 #include <windows.h>
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -129,7 +130,14 @@ void CDemoDlg::OnBTNInit()
 		else
 			zkfpEng.put_FPEngineVersion("10");
 		fpcHandle = zkfpEng.CreateFPCacheDBEx();
-		long id = zkfpEng.AddRegTemplateFileToFPCacheDB(fpcHandle, FPID, "fingerprint.tpl");
+		//long id = zkfpEng.AddRegTemplateFileToFPCacheDB(fpcHandle, FPID, "fingerprint.tpl");
+	
+		CStdioFile file(_T("fingerDB.txt"), CFile::modeRead);
+		CString line;
+		while (file.ReadString(line)) {
+			zkfpEng.AddRegTemplateStrToFPCacheDB(fpcHandle, FPID, (LPCTSTR)line);
+			FPID = FPID + 1;
+		}
 		m_SN = zkfpEng.get_SensorSN();
 		ltoa(zkfpEng.get_SensorIndex(), buffer, 10);
 		m_Cur = buffer;
@@ -231,6 +239,11 @@ void CDemoDlg::OnOnEnrollZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATempla
 
 			pTemplate = zkfpEng.DecodeTemplate1((LPCTSTR)sRegTemplate);
 			MessageBox(sRegTemplate);
+			std::ofstream fout;
+			fout.open("fingerDB.txt", std::fstream::app);
+			fout << sRegTemplate;
+			fout << "\n";
+			//zkfpEng.SaveTemplateStr("fingerDB.txt", sRegTemplate);
 			// Note: 10.0Template can not be compressed
 			zkfpEng.SetTemplateLen(&pTemplate, 602);
 			zkfpEng.SaveTemplate("fingerprint.tpl", pTemplate);
