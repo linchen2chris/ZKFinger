@@ -6,6 +6,8 @@
 #include "iostream"
 #include <fstream>
 #include <string>
+#include <sstream>
+
 #include <windows.h>
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -78,7 +80,16 @@ BOOL CDemoDlg::OnInitDialog()
 
 	CheckRadioButton(IDC_RADIO9, IDC_RADIO10, IDC_RADIO9);
 	EnableButton(false);
-	
+	char textLengthBytes[4];
+	std::cin.read(textLengthBytes, 4);
+	unsigned int inLen = *reinterpret_cast<unsigned int *>(textLengthBytes);
+	char *inMsg = new char[inLen];
+	std::cin.read(inMsg, inLen);
+	std::string s(inMsg);
+	delete[] inMsg;
+	//memcpy(&textLengthBytes, &myByteArray[0], sizeof(textLengthBytes));
+	MessageBox(s.c_str());
+	//MessageBox(textLengthBytes);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -181,7 +192,16 @@ void CDemoDlg::OnBTNReg()
 	zkfpEng.CancelEnroll();
 	zkfpEng.put_EnrollCount(3);
 	zkfpEng.BeginEnroll();
-
+	std::string message = "{\"text\": \"This is a register message\"}";
+	unsigned int len = message.length();
+	// We need to send the 4 bytes of length information
+	std::cout << char(((len >> 0) & 0xFF))
+		<< char(((len >> 8) & 0xFF))
+		<< char(((len >> 16) & 0xFF))
+		<< char(((len >> 24) & 0xFF));
+	// Now we can output our message 
+	std::cout << message;
+	std::cout.flush();
 	SetDlgItemText(IDC_EDTHINT, "开始注册，请放入手指");		
 }
 
@@ -214,6 +234,19 @@ void CDemoDlg::OnOnCaptureZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATempl
 	else
 	{
 		sprintf(buffer, "验证成功 ID = %d Score = %d  Processed Number = %d", id, Score, ProcessNum);
+		std::string message;
+		std::stringstream strstream;
+		strstream << id;
+		strstream >> message;
+		unsigned int len = message.length();
+		// We need to send the 4 bytes of length information
+		std::cout << char(((len >> 0) & 0xFF))
+			<< char(((len >> 8) & 0xFF))
+			<< char(((len >> 16) & 0xFF))
+			<< char(((len >> 24) & 0xFF));
+		// Now we can output our message 
+		std::cout << message ;
+		std::cout.flush();
 		SetDlgItemText(IDC_EDTHINT, buffer);
 	}  
 }
@@ -251,7 +284,6 @@ void CDemoDlg::OnOnEnrollZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATempla
 			FPID = FPID + 1;
 			UpdateData(TRUE);
 			MessageBox("注册成功！");
-
 		}
 		else
 		{
