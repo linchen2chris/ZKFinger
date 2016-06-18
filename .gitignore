@@ -3,4 +3,7 @@ Demo.aps
 Release/
 desktop.ini
 Debug/
+Demo.VC.db
+.vs/
+Backup/
 
