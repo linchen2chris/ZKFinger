@@ -98,6 +98,7 @@ void CDemoDlg::OnPaint()
 		int cyIcon = GetSystemMetrics(SM_CYICON);
 		CRect rect;
 		GetClientRect(&rect);
+
 		int x = (rect.Width() - cxIcon + 1) / 2;
 		int y = (rect.Height() - cyIcon + 1) / 2;
 
@@ -132,11 +133,14 @@ void CDemoDlg::OnBTNInit()
 		//long id = zkfpEng.AddRegTemplateFileToFPCacheDB(fpcHandle, FPID, "fingerprint.tpl");
 	
 		CStdioFile file(_T("fingerDB.txt"), CFile::modeRead);
-		CString line;
+		CString line, finger;
+		long fingerID = 0;
 		while (file.ReadString(line)) {
-			zkfpEng.AddRegTemplateStrToFPCacheDB(fpcHandle, FPID, (LPCTSTR)line);
-			FPID = FPID + 1;
+			finger = line.SpanExcluding(" ");
+			fingerID = atol(line.Right(line.GetLength() - finger.GetLength() - 1));
+			zkfpEng.AddRegTemplateStrToFPCacheDB(fpcHandle, fingerID, (LPCTSTR)finger);
 		}
+		FPID = fingerID + 1;
 		m_SN = zkfpEng.get_SensorSN();
 		ltoa(zkfpEng.get_SensorIndex(), buffer, 10);
 		m_Cur = buffer;
@@ -240,11 +244,13 @@ void CDemoDlg::OnOnEnrollZkfpengx2(BOOL ActionResult, const VARIANT FAR& ATempla
 			std::ofstream fout;
 			fout.open("fingerDB.txt", std::fstream::app);
 			fout << sRegTemplate;
+			fout << " ";
+			fout << FPID,
 			fout << "\n";
 			//zkfpEng.SaveTemplateStr("fingerDB.txt", sRegTemplate);
 			// Note: 10.0Template can not be compressed
-			zkfpEng.SetTemplateLen(&pTemplate, 602);
-			zkfpEng.SaveTemplate("fingerprint.tpl", pTemplate);
+			//zkfpEng.SetTemplateLen(&pTemplate, 602);
+			//zkfpEng.SaveTemplate("fingerprint.tpl", pTemplate);
 
 			FPID = FPID + 1;
 			UpdateData(TRUE);
